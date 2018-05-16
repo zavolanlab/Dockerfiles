@@ -1,9 +1,9 @@
 ##### BASE IMAGE #####
-FROM debian:9.3
+FROM python:3.6.5
 
 ##### METADATA #####
-LABEL base.image="debian:9.3"
-LABEL version="1"
+LABEL base.image="python:3.6.5"
+LABEL version="2"
 LABEL software="3.6.5_0.9.1"
 LABEL software.version="3.6.5_0.9.1"
 LABEL software.description="Python programming language|Analysing high-throughput sequencing data with Python"
@@ -23,18 +23,6 @@ ENV SOFTWARE_VERSION 3.6.5_0.9.1
 
 ##### INSTALL #####
 RUN apt-get update -y \
-  && apt-get install -y wget build-essential libz-dev libssl-dev openssl gcc \
-  && wget https://www.python.org/ftp/python/3.6.5/Python-3.6.5.tgz \
-  && tar zxf Python-3.6.5.tgz \
-  && cd Python-3.6.5 \
-  && ./configure --prefix=/usr/local \
-  && make \
-  && make altinstall \
-  && ln -s /usr/local/bin/python3.6 /usr/local/bin/python \
-  && ln -s /usr/local/bin/pip3.6 /usr/local/bin/pip \
-  && cd .. \
-  && rm -r Python-3.6.5.tgz \
-  && apt-get purge -y wget \
   && apt-get autoremove -y && apt-get clean \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
   && pip install HTSeq==0.9.1
