@@ -3,7 +3,7 @@ FROM debian:9.3
 
 ##### METADATA #####
 LABEL base.image="debian:9.3"
-LABEL version="1"
+LABEL version="2"
 LABEL software="cufflinks"
 LABEL software.version="2.2.1"
 LABEL software.description="Transcriptome assembly and differential expression analysis for RNA-Seq."
@@ -24,7 +24,7 @@ ENV SOFTWARE_VERSION 2.2.1
 ##### INSTALL #####
 RUN apt-get update -y \
   && apt-get install -y wget python build-essential libz-dev \
-  && wget http://cole-trapnell-lab.github.io/cufflinks/assets/downloads/links-2.2.1.Linux_x86_64.tar.gz \
+  && wget http://cole-trapnell-lab.github.io/cufflinks/assets/downloads/cufflinks-2.2.1.Linux_x86_64.tar.gz \
   && tar xzvf cufflinks-2.2.1.Linux_x86_64.tar.gz \
   && cd cufflinks-2.2.1.Linux_x86_64 \
   && ln -s /cufflinks-2.2.1.Linux_x86_64/cuffcompare /usr/local/bin/cuffcompare \
