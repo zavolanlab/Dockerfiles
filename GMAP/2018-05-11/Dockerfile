@@ -3,7 +3,7 @@ FROM debian:9.3
 
 ##### METADATA #####
 LABEL base.image="debian:9.3"
-LABEL version="1"
+LABEL version="2"
 LABEL software="GMAP"
 LABEL software.version="2018-05-11"
 LABEL software.description="GMAP: A Genomic Mapping and Alignment Program for mRNA and EST Sequences, and GSNAP: Genomic Short-read Nucleotide Alignment Program"
@@ -34,5 +34,7 @@ RUN apt-get update -y \
   && make check \
   && make install \
   && rm -rf /tmp/gmap-* \
-  && apt-get remove --purge --yes make g++ wget \
+  && apt-get remove --purge --yes make \
+  && apt-get remove --purge --yes g++ \
+  && apt-get remove --purge --yes wget \
   && apt-get autoremove --purge --yes
