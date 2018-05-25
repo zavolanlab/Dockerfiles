@@ -3,7 +3,7 @@ FROM ubuntu:16.04
 
 ##### METADATA #####
 LABEL base.image="ubuntu:16.04"
-LABEL version="3"
+LABEL version="4"
 LABEL software="GMAP"
 LABEL software.version="2018-05-11"
 LABEL software.description="GMAP: A Genomic Mapping and Alignment Program for mRNA and EST Sequences, and GSNAP: Genomic Short-read Nucleotide Alignment Program"
