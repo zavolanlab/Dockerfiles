@@ -1,9 +1,9 @@
 ##### BASE IMAGE #####
-FROM debian:9.3
+FROM ubuntu:16.04
 
 ##### METADATA #####
-LABEL base.image="debian:9.3"
-LABEL version="2"
+LABEL base.image="ubuntu:16.04"
+LABEL version="3"
 LABEL software="GMAP"
 LABEL software.version="2018-05-11"
 LABEL software.description="GMAP: A Genomic Mapping and Alignment Program for mRNA and EST Sequences, and GSNAP: Genomic Short-read Nucleotide Alignment Program"
@@ -23,18 +23,16 @@ ENV SOFTWARE_VERSION 2018-05-11
 
 ##### INSTALL #####
 
-RUN apt-get update -y \
-  && apt-get install --y make g++ zlib1g-dev libbz2-dev wget perl \
+RUN apt-get update \
+  && apt-get install --yes make g++ zlib1g-dev libbz2-dev wget perl \
   && cd /tmp \
-  && wget http://research-pub.gene.com/gmap/src/gmap-gsnap-2018-05-11.tar.gz \
-  && tar xzf gmap-gsnap-*.tar.gz && \
-  && cd /tmp/gmap-* && \
+  && wget http://research-pub.gene.com/gmap/src/gmap-gsnap-2018-03-25.tar.gz \
+  && tar xzf gmap-gsnap-*.tar.gz \
+  && cd /tmp/gmap-* \
   && ./configure --prefix=/usr/local --with-simd-level=sse42 \
   && make \
   && make check \
   && make install \
   && rm -rf /tmp/gmap-* \
-  && apt-get remove --purge --yes make \
-  && apt-get remove --purge --yes g++ \
-  && apt-get remove --purge --yes wget \
+  && apt-get remove --purge --yes make g++ wget \
   && apt-get autoremove --purge --yes
