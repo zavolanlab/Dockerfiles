@@ -4,7 +4,7 @@ FROM python:3.6.5-slim
 ##### METADATA #####
 LABEL base.image="python:3.6.5-slim"
 LABEL version="1"
-LABEL software="ucsc_pairwise_alignments_custom_scsripts"
+LABEL software="ucsc_pairwise_alignments_custom_scripts"
 LABEL software.version="0.1"
 LABEL software.description="Custom scripts for ucsc alignments"
 LABEL software.website=""
