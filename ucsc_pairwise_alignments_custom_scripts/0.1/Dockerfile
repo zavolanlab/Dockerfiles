@@ -1,9 +1,9 @@
 ##### BASE IMAGE #####
-FROM python:3.6.5-slim
+FROM python:3.6.5
 
 ##### METADATA #####
-LABEL base.image="python:3.6.5-slim"
-LABEL version="1"
+LABEL base.image="python:3.6.5"
+LABEL version="2"
 LABEL software="ucsc_pairwise_alignments_custom_scripts"
 LABEL software.version="0.1"
 LABEL software.description="Custom scripts for ucsc alignments"
@@ -21,6 +21,9 @@ LABEL maintainer.license="https://spdx.org/licenses/Apache-2.0"
 # Use variables for convenient updates/re-usability
 ENV SOFTWARE_VERSION 0.1
 
-RUN pip install --no-cache-dir wget==3.2
+RUN apt-get update -y \
+  && apt-get autoremove -y && apt-get clean \
+  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
+  && pip install wget==3.2
 
 COPY *.py /usr/bin/
