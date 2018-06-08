@@ -3,7 +3,7 @@ FROM python:3.6.5
 
 ##### METADATA #####
 LABEL base.image="python:3.6.5"
-LABEL version="2"
+LABEL version="3"
 LABEL software="ucsc_pairwise_alignments_custom_scripts"
 LABEL software.version="0.1"
 LABEL software.description="Custom scripts for ucsc alignments"
