@@ -23,6 +23,7 @@ ENV SOFTWARE_VERSION 1.16
 
 ##### INSTALL #####
 RUN apt-get update -y \
+  && apt-get install -y pigz \
   && apt-get autoremove -y && apt-get clean \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
   && pip install cutadapt==1.16
