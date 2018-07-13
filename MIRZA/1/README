@@ -1,0 +1,38 @@
+[INSTALLATION]
+    Run install.sh to install the software and the needed libraries.
+    The installation procedure takes ca. 15 minutes.
+
+
+[RUNNING MIRZA]
+    Instructions on how to pass parameters to the program will be
+    displayed once the installation is completed.
+
+
+[miRNA FILE FORMATS]
+
+    miRNA epression files should be in this format:
+    name[tab|space|multiple spaces]expression level
+
+    examples:
+    hsa-miR-19b	    1749716.66654086
+    hsa-miR-7	1363730.98809087
+
+
+    miRNA sequence files should be in this format:
+    >name
+    sequence
+    example:
+    >hsa-miR-19b
+    UGUGCAAAUCCAUGCAAAACU
+
+    miRNA sequences must have a length of al least 21 nucleotides. If longer,
+    the sequence will be trimmed. If shorter, it will be discarded.
+
+
+[mRNA FILE FORMAT]
+    mRNA files should be in FASTA format.
+    example:
+    >NM_002467|1998|2048|13977.5472816059|21.6094593545982|2023
+    TTGAGACTGAAAGATTTAGCCATAATGTAAACTGCCTCAAATTGGACTTTG
+
+    mRNA sequences must have the same length. If not, the program will exit.
