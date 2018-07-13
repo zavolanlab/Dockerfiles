@@ -3,7 +3,7 @@ FROM python:3.6.5
 
 ##### METADATA #####
 LABEL base.image="python:3.6.5"
-LABEL version="1"
+LABEL version="2"
 LABEL software="cutadapt"
 LABEL software.version="1.16"
 LABEL software.description="Cutadapt finds and removes adapter sequences, primers, poly-A tails and other types of unwanted sequence from your high-throughput sequencing reads."
@@ -25,4 +25,4 @@ ENV SOFTWARE_VERSION 1.16
 RUN apt-get update -y \
   && apt-get autoremove -y && apt-get clean \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
-  && pip install pip install cutadapt==1.16
+  && pip install cutadapt==1.16
