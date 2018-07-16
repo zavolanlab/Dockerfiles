@@ -35,3 +35,5 @@ RUN apt-get update -y \
   && rm -r salmon-v${SOFTWARE_VERSION}.tar.gz \
   && apt-get autoremove -y && apt-get clean \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+ENV PATH /home/salmon-${SOFTWARE_VERSION}/bin:${PATH}
