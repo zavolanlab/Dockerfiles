@@ -26,7 +26,7 @@ ENV SOFTWARE_VERSION 0.11.0
 RUN apt-get update -y \
   && apt-get install -y git gcc make g++ cmake libboost-all-dev liblzma-dev libbz2-dev ca-certificates zlib1g-dev curl unzip autoconf \
   && apt-get clean \
-  && curl -k -L https://github.com/COMBINE-lab/salmon/archive/v${SALMON_VERSION}.tar.gz -o salmon-v${SALMON_VERSION}.tar.gz \
+  && curl -k -L https://github.com/COMBINE-lab/salmon/archive/v${SOFTWARE_VERSION}.tar.gz -o salmon-v${SOFTWARE_VERSION}.tar.gz \
   && tar xzf salmon-v${SOFTWARE_VERSION}.tar.gz \
   && cd salmon-${SOFTWARE_VERSION} \
   && mkdir build \
@@ -36,7 +36,7 @@ RUN apt-get update -y \
   && make install \
   && cd ../../ \
   && rm -r salmon-v${SOFTWARE_VERSION}.tar.gz \
-  && apt-get autoremove -y
+  && apt-get autoremove -y \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
