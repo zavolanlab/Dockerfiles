@@ -31,9 +31,13 @@ RUN apt-get update -y \
   && cd salmon-${SOFTWARE_VERSION} \
   && mkdir build \
   && cd build \
-  && cmake .. -DCMAKE_INSTALL_PREFIX=/usr/local && make && make install \
+  && cmake .. -DCMAKE_INSTALL_PREFIX=/usr/local \
+  && make \
+  && make install \
+  && cd ../../ \
   && rm -r salmon-v${SOFTWARE_VERSION}.tar.gz \
-  && apt-get autoremove -y && apt-get clean \
+  && apt-get autoremove -y
+  && apt-get clean \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 ENV PATH /home/salmon-${SOFTWARE_VERSION}/bin:${PATH}
