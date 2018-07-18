@@ -27,5 +27,5 @@ RUN apt-get update -y \
   && apt-get autoremove -y \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
-  && Rscript -e 'install.packages(c("devtools", "optparse", "gplots", "RColorBrewer"), repos = "http://cran.us.r-project.org")' \
+  && Rscript -e 'install.packages(c("devtools", "optparse", "gplots", "RColorBrewer", "statmod"), repos = "http://cran.us.r-project.org")' \
   && Rscript -e 'source("https://bioconductor.org/biocLite.R"); biocLite(c("rtracklayer", "edgeR"), ask=FALSE);'
