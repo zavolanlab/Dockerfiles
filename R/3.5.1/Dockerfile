@@ -3,7 +3,7 @@ FROM r-base:3.5.1
 
 ##### METADATA #####
 LABEL base.image="r-base:3.5.1"
-LABEL version="1"
+LABEL version="2"
 LABEL software="3.5.1"
 LABEL software.version="3.5.1"
 LABEL software.description="R is a system for statistical computation and graphics."
@@ -23,7 +23,9 @@ ENV SOFTWARE_VERSION 3.5.1
 
 ##### INSTALL #####
 RUN apt-get update -y \
-  && apt-get autoremove -y && apt-get clean \
+  && apt-get install -y curl zlib1g-dev software-properties-common libcurl4-gnutls-dev libxml2-dev libssl-dev apt-transport-https \
+  && apt-get autoremove -y \
+  && apt-get clean \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
   && Rscript -e 'install.packages(c("devtools", "optparse", "gplots", "RColorBrewer"), repos = "http://cran.us.r-project.org")' \
   && Rscript -e 'source("https://bioconductor.org/biocLite.R"); biocLite(c("rtracklayer", "edgeR"), ask=FALSE);'
