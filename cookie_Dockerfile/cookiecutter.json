@@ -1,0 +1,17 @@
+{
+  "base_image": "debian",
+  "base_tag": "9.3",
+  "dockerfile_version": "1",
+  "orig_software": "Name of original software",
+  "orig_software_version": "Version of original software",
+  "orig_software_description": "Short description of original software",
+  "orig_software_url": "url to original software",
+  "orig_software_documentation": "link to doc pages of original software",
+  "orig_software_license": "link to license(file) of original software",
+  "orig_software_tag": "Genomics, Transcriptomics, Proteomics, Metabolomics, General",
+  "maintainer": "XXX@unibas.ch",
+  "organization":"Biozentrum, University of Basel",
+  "location": "Klingelbergstrasse 50/70, CH-4056 Basel, Switzerland",
+  "lab": "Zavolan Lab",
+  "license": "https://spdx.org/licenses/Apache-2.0"
+}
