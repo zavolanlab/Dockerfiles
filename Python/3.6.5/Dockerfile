@@ -3,8 +3,8 @@ FROM python:3.6.5
 
 ##### METADATA #####
 LABEL base.image="python:3.6.5"
-LABEL version="1"
-LABEL software="3.6.5"
+LABEL version="2"
+LABEL software="python"
 LABEL software.version="3.6.5"
 LABEL software.description="Python programming language"
 LABEL software.website="https://www.python.org/"
@@ -25,4 +25,4 @@ ENV SOFTWARE_VERSION 3.6.5
 RUN apt-get update -y \
   && apt-get autoremove -y && apt-get clean \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
-  && pip install wget==3.2
+  && pip install wget==3.2 Biopython==1.72
