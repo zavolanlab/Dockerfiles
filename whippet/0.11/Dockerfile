@@ -17,7 +17,7 @@ LABEL maintainer.location="Klingelbergstrasse 50/70, CH-4056 Basel, Switzerland"
 LABEL maintainer.lab="Zavolan Lab"
 LABEL maintainer.license="https://spdx.org/licenses/Apache-2.0"
 
-
+# install dependencies
 RUN apt-get update \
   && apt-get install -y tzdata \
   && ln -fs /usr/share/zoneinfo/Europe/Berlin /etc/localtime \
@@ -33,9 +33,7 @@ RUN wget https://julialang-s3.julialang.org/bin/linux/x64/0.6/julia-0.6.4-linux-
 RUN julia -e 'Pkg.add("Whippet")' \
   && julia -e 'using Whippet'
 
-WORKDIR ~/.julia/v0.6/Whippet/bin
+# Clean up
+RUN rm /julia-0.6.4-linux-x86_64.tar.gz
 
-
-#  && rm /usr/local/bin/julia-0.6.4-linux-x86_64.tar.gz \
-#  && apt-get remove --purge --yes make g++  \
-#  && apt-get autoremove --purge --yes
+WORKDIR /root/.julia/v0.6/Whippet/bin/
