@@ -19,7 +19,7 @@ LABEL maintainer.license="https://spdx.org/licenses/Apache-2.0"
 
 ##### INSTALL #####
 RUN apt-get update -y \
-  && apt-get install -y curl zlib1g-dev software-properties-common libcurl4-gnutls-dev libxml2-dev libssl-dev apt-transport-https wget \
+  && apt-get install -y curl zlib1g-dev software-properties-common libcurl4-gnutls-dev libxml2-dev apt-transport-https wget libssl1.1=1.1.1-1 libssl-dev=1.1.1-1 \
   && Rscript -e 'install.packages(c("devtools", "optparse"), repos = "http://cran.us.r-project.org")' \
   && Rscript -e 'install.packages(c("ape", "maps", "animation", "clusterGeneration", "coda", "combinat", "expm", "mnormt", "numDeriv", "phangorn", "plotrix", "scatterplot3d"), repos = "http://cran.us.r-project.org")' \
   && wget https://cran.r-project.org/src/contrib/phytools_0.6-60.tar.gz \
