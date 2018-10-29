@@ -54,3 +54,8 @@ RUN git clone https://fgypas@bitbucket.org/ConesaLab/sqanti.git \
   && git checkout 6927e53e56d238cb94157ec06788d1e4df198fe5 \
   && chmod +x sqanti_qc.py sqanti_filter.py utilities/* \
   && cp -R ./ /usr/bin/
+
+# quick fix for missing library
+RUN cd /usr/lib/x86_64-linux-gnu/ \
+  && ln -s libpng16.so libpng12.so.0 \
+  && cd $HOME
