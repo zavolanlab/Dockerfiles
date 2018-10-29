@@ -24,9 +24,3 @@ RUN apt-get update -y \
   && wget https://bioconductor.org/packages/release/bioc/src/contrib/seqLogo_1.46.0.tar.gz \
   && R CMD INSTALL seqLogo_1.46.0.tar.gz \
   && rm seqLogo_1.46.0.tar.gz
-
-#source("https://bioconductor.org/biocLite.R")
-#biocLite("seqLogo")
-# && Rscript -e 'install.packages(c("ape", "maps", "animation", "clusterGeneration", "coda", "combinat", "expm", "mnormt", 
-# "numDeriv", "phangorn", "plotrix", "scatterplot3d"), repos = "http://cran.us.r-project.org")' \
- 
