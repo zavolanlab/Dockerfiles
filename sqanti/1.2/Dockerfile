@@ -3,7 +3,7 @@ FROM r-base:3.5.1
 
 ##### METADATA #####
 LABEL base.image="r-base:3.5.1"
-LABEL version="3"
+LABEL version="4"
 LABEL software="sqanti"
 LABEL software.version="1.2"
 LABEL software.description="SQANTI: Structural and Quality Annotation of Novel Transcript Isoforms"
@@ -27,7 +27,7 @@ RUN apt-get update \
   && apt-get install -y tzdata \
   && ln -fs /usr/share/zoneinfo/Europe/Berlin /etc/localtime \
   && dpkg-reconfigure --frontend noninteractive tzdata \
-  && apt-get install -y vim wget curl zlib1g-dev git software-properties-common libcurl4-gnutls-dev libxml2-dev apt-transport-https libmariadb-client-lgpl-dev g++ libbz2-dev perl libgit2-dev libssl1.1=1.1.1-1 libssl-dev=1.1.1-1 \
+  && apt-get install -y vim wget curl zlib1g-dev git software-properties-common libcurl4-gnutls-dev libxml2-dev apt-transport-https libmariadb-client-lgpl-dev g++ libbz2-dev perl libgit2-dev libssl1.1=1.1.1-1 libssl-dev=1.1.1-1 libgfortran3 \
   && apt-get install -y python-pip python-dev build-essential \
   && pip install Pysam==0.15 \
   && pip install psutil==5.4.7
