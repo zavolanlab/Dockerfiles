@@ -27,7 +27,7 @@ RUN apt-get update \
   && apt-get install -y tzdata \
   && ln -fs /usr/share/zoneinfo/Europe/Berlin /etc/localtime \
   && dpkg-reconfigure --frontend noninteractive tzdata \
-  && apt-get install -y vim wget curl zlib1g-dev git software-properties-common libcurl4-gnutls-dev libxml2-dev apt-transport-https libmariadb-client-lgpl-dev g++ libbz2-dev perl libgit2-dev libssl1.1=1.1.1-1 libssl-dev=1.1.1-1 libgfortran3 \
+  && apt-get install -y vim wget curl zlib1g-dev git software-properties-common libcurl4-gnutls-dev libxml2-dev apt-transport-https libmariadb-client-lgpl-dev g++ libbz2-dev perl libgit2-dev libssl1.1 libssl-dev libgfortran3 \
   && apt-get install -y python-pip python-dev build-essential \
   && pip install Pysam==0.15 \
   && pip install psutil==5.4.7
