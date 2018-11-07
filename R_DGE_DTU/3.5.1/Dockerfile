@@ -3,10 +3,10 @@ FROM r-base:3.5.1
 
 ##### METADATA #####
 LABEL base.image="r-base:3.5.1"
-LABEL version="1"
-LABEL software="R_DGE_DTU"
+LABEL version="2"
+LABEL software="3.5.1"
 LABEL software.version="3.5.1"
-LABEL software.description="R is a system for statistical computation and graphics. DGE_DTU: Differential gene expressuib and different transcript usage analysis"
+LABEL software.description="R is a system for statistical computation and graphics."
 LABEL software.website="https://www.r-project.org/"
 LABEL software.documentation="https://www.r-project.org/"
 LABEL software.license=""
@@ -28,4 +28,4 @@ RUN apt-get update -y \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
   && Rscript -e 'install.packages(c("optparse", "gplots", "RColorBrewer", "statmod"), repos = "http://cran.us.r-project.org")' \
-  && Rscript -e 'source("https://bioconductor.org/biocLite.R"); biocLite(c("rtracklayer", "edgeR", "DRIMSeq", "DESeq", "stageR", "DEXSeq", "tximport"), ask=FALSE);'
+  && Rscript -e 'source("https://bioconductor.org/biocLite.R"); biocLite(c("rtracklayer", "edgeR", "DRIMSeq", "DESeq", "stageR", "DEXSeq", "tximport","GenomicFeatures"), ask=FALSE);'
