@@ -23,7 +23,7 @@ ENV SOFTWARE_VERSION 3.5.1
 
 ##### INSTALL #####
 RUN apt-get update -y \
-  && apt-get install -y curl zlib1g-dev software-properties-common libcurl4 libxml2-dev libssl-dev apt-transport-https libgfortran3 libopenblas-base \
+  && apt-get install -y curl zlib1g-dev software-properties-common libcurl4=7.61.0-1 libxml2-dev libssl-dev apt-transport-https libgfortran3 libopenblas-base \
   && apt-get autoremove -y \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
