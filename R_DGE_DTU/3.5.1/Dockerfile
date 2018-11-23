@@ -23,7 +23,9 @@ ENV SOFTWARE_VERSION 3.5.1
 
 ##### INSTALL #####
 RUN apt-get update -y \
-  && apt-get install -y build-essential curl zlib1g-dev software-properties-common libcurl4-openssl-dev libxml2-dev libssl-dev apt-transport-https libgfortran3 libopenblas-base
+  && apt-get install -y --allow-downgrades build-essential curl zlib1g-dev software-properties-common libcurl4-openssl-dev libxml2-dev libssl-dev apt-transport-https libgfortran3 libopenblas-base
+
+# apt-get build-dep libcurl4-openssl-dev
 
 ##### INSTALL R packages #####
 RUN Rscript -e 'install.packages(c("optparse", "devtools", "RCurl", "BiocManager"), repos = "http://cran.us.r-project.org")' \
