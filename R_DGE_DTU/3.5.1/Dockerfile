@@ -3,7 +3,7 @@ FROM r-base:3.5.1
 
 ##### METADATA #####
 LABEL base.image="r-base:3.5.1"
-LABEL version="3"
+LABEL version="4"
 LABEL software="R_DGE_DTU"
 LABEL software.version="3.5.1"
 LABEL software.description="DGE & DTU using different R libraries."
@@ -23,9 +23,11 @@ ENV SOFTWARE_VERSION 3.5.1
 
 ##### INSTALL #####
 RUN apt-get update -y \
-  && apt-get install -y --allow-downgrades curl zlib1g-dev software-properties-common libcurl4=7.61.0-1 libxml2-dev libssl-dev apt-transport-https libgfortran3 libopenblas-base \
-  && Rscript -e 'install.packages(c("optparse", "gplots", "RColorBrewer", "statmod"), repos = "http://cran.us.r-project.org")' \
-  && Rscript -e 'source("https://bioconductor.org/biocLite.R"); biocLite(c("rtracklayer", "edgeR", "DRIMSeq", "DESeq", "stageR", "DEXSeq", "tximport","GenomicFeatures"), ask=FALSE);'
+  && apt-get install -y build-essential curl zlib1g-dev software-properties-common libcurl4-openssl-dev libxml2-dev libssl-dev apt-transport-https libgfortran3 libopenblas-base
+
+##### INSTALL R packages #####
+RUN Rscript -e 'install.packages(c("optparse", "devtools", "RCurl", "BiocManager"), repos = "http://cran.us.r-project.org")' \
+  && Rscript -e 'BiocManager::install(c("DRIMSeq", "DEXSeq", "DESeq", "edgeR", "stageR", "tximport", "GenomicFeatures"), ask=FALSE, update = FALSE, version="3.8");'
 
 #  && apt-get autoremove -y \
 #  && apt-get clean \
