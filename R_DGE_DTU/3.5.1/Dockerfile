@@ -23,7 +23,7 @@ ENV SOFTWARE_VERSION 3.5.1
 
 ##### INSTALL #####
 RUN apt-get update -y \
-  && apt-get install -y --allow-downgrades build-essential curl zlib1g-dev software-properties-common libcurl4-openssl-dev libxml2-dev libssl-dev apt-transport-https libgfortran3 libopenblas-base
+  && apt-get install -y --allow-downgrades build-essential curl zlib1g-dev software-properties-common libcurl4=7.61.0-1 libcurl4-openssl-dev libxml2-dev libssl-dev apt-transport-https libgfortran3 libopenblas-base
 
 # apt-get build-dep libcurl4-openssl-dev
 
