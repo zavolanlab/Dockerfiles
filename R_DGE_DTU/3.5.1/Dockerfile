@@ -34,3 +34,9 @@ RUN Rscript -e 'install.packages(c("optparse", "devtools", "RCurl", "BiocManager
 #  && apt-get autoremove -y \
 #  && apt-get clean \
 #  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+# quick fix for missing library
+RUN cd /usr/lib/x86_64-linux-gnu/ \
+  && ln -s libssl.so libssl.so.10 \
+  && ln -s libpng16.so libpng12.so.0 \
+  && cd $HOME
