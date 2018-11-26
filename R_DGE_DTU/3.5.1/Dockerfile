@@ -39,4 +39,5 @@ RUN Rscript -e 'install.packages(c("optparse", "devtools", "RCurl", "BiocManager
 RUN cd /usr/lib/x86_64-linux-gnu/ \
   && ln -s libssl.so libssl.so.10 \
   && ln -s libpng16.so libpng12.so.0 \
+  && ln -s libcrypto.so libcrypto.so.10 \
   && cd $HOME
