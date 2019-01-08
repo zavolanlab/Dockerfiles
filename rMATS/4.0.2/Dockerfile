@@ -4,7 +4,7 @@ FROM continuumio/miniconda:4.5.12
 
 ##### METADATA #####
 LABEL base.image="continuumio/miniconda:4.5.12"
-LABEL version="1"
+LABEL version="2"
 LABEL software="rmats"
 LABEL software.version="4.0.2"
 LABEL software.description="MATS is a computational tool to detect differential alternative splicing events from RNA-Seq data."
@@ -24,4 +24,4 @@ ENV SOFTWARE_VERSION 4.0.2
 
 ##### INSTALL #####
 RUN apt-get update -y \
-  && conda install -c bioconda rmats=4.0.2
+  && conda install -c bioconda rmats=4.0.2 rmats2sashimiplot=2.0.3
