@@ -1,10 +1,9 @@
 ##### BASE IMAGE #####
-
-FROM continuumio/miniconda:4.5.12
+FROM python:2.7-slim
 
 ##### METADATA #####
-LABEL base.image="continuumio/miniconda:4.5.12"
-LABEL version="2"
+LABEL base.image="python:2.7-slim"
+LABEL version="1"
 LABEL software="rmats"
 LABEL software.version="4.0.2"
 LABEL software.description="MATS is a computational tool to detect differential alternative splicing events from RNA-Seq data."
@@ -22,6 +21,15 @@ LABEL maintainer.license="https://spdx.org/licenses/Apache-2.0"
 # Use variables for convenient updates/re-usability
 ENV SOFTWARE_VERSION 4.0.2
 
-##### INSTALL #####
 RUN apt-get update -y \
-  && conda install -c bioconda rmats=4.0.2 rmats2sashimiplot=2.0.3
+  && apt-get install -y wget libblas-dev liblapack-dev libgsl2 gfortran \
+  && pip install numpy \
+  && wget https://sourceforge.net/projects/rnaseq-mats/files/MATS/rMATS.4.0.2.tgz/download \
+  && tar -xzf download \
+  && chmod + /rMATS.4.0.2/rMATS-turbo-Linux-UCS4/rmats.py
+
+#  && apt-get autoremove -y && apt-get clean \
+#  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
+#  && pip install --no-cache-dir numpy pandas
+#
+#COPY *.py /usr/bin/
