@@ -22,11 +22,24 @@ LABEL maintainer.license="https://spdx.org/licenses/Apache-2.0"
 ENV SOFTWARE_VERSION 4.0.2
 
 RUN apt-get update -y \
-  && apt-get install -y wget libblas-dev liblapack-dev libgsl2 gfortran \
-  && pip install numpy \
+  && apt-get install -y wget libblas-dev liblapack-dev libgsl2 libgsl-dev gfortran gcc make \
+  && pip2 install numpy \
   && wget https://sourceforge.net/projects/rnaseq-mats/files/MATS/rMATS.4.0.2.tgz/download \
   && tar -xzf download \
-  && chmod + /rMATS.4.0.2/rMATS-turbo-Linux-UCS4/rmats.py
+  && chmod + /rMATS.4.0.2/rMATS-turbo-Linux-UCS4/rmats.py \
+  && rm download \
+  && wget https://sourceforge.net/projects/rnaseq-mats/files/MATS/rMATS.4.0.1.tgz/download \
+  && tar -xzf download \
+  && chmod + /rMATS.4.0.1/rMATS-turbo-Linux-UCS4/rmats.py \
+  && rm download \
+  && wget https://sourceforge.net/projects/rnaseq-mats/files/MATS/testData.tgz/download \
+  && tar -xzf download \
+  && rm download
+  
+# quick fix
+RUN cd /usr/lib/x86_64-linux-gnu/ \
+  && ln libgsl.so libgsl.so.0 \
+  && cd $HOME
 
 #  && apt-get autoremove -y && apt-get clean \
 #  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
