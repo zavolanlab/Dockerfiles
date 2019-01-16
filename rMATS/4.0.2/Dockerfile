@@ -3,7 +3,7 @@ FROM python:2.7-slim
 
 ##### METADATA #####
 LABEL base.image="python:2.7-slim"
-LABEL version="1"
+LABEL version="2"
 LABEL software="rmats"
 LABEL software.version="4.0.2"
 LABEL software.description="MATS is a computational tool to detect differential alternative splicing events from RNA-Seq data."
@@ -37,8 +37,8 @@ RUN apt-get update -y \
   && rm download
   
 # quick fix
-RUN cd /usr/lib/x86_64-linux-gnu/ \
-  && ln libgsl.so libgsl.so.0 \
+RUN cd /usr/lib/x86_64-linux-gnu \
+  && ln -s libgsl.so libgsl.so.0 \
   && cd $HOME
 
 #  && apt-get autoremove -y && apt-get clean \
