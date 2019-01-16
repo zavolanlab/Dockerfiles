@@ -3,7 +3,7 @@ FROM python:2.7-slim
 
 ##### METADATA #####
 LABEL base.image="python:2.7-slim"
-LABEL version="3"
+LABEL version="4"
 LABEL software="rmats"
 LABEL software.version="4.0.2"
 LABEL software.description="MATS is a computational tool to detect differential alternative splicing events from RNA-Seq data."
@@ -26,12 +26,13 @@ RUN apt-get update -y \
   && pip2 install numpy \
   && wget https://sourceforge.net/projects/rnaseq-mats/files/MATS/rMATS.${SOFTWARE_VERSION}.tgz/download \
   && tar -xzf download \
-  && chmod + /rMATS.${SOFTWARE_VERSION}/rMATS-turbo-Linux-UCS4/rmats.py \
-  && chmod + /rMATS.${SOFTWARE_VERSION}/rMATS-turbo-Linux-UCS2/rmats.py \
+  && chmod +x /rMATS.${SOFTWARE_VERSION}/rMATS-turbo-Linux-UCS4/rmats.py \
+  && chmod +x /rMATS.${SOFTWARE_VERSION}/rMATS-turbo-Linux-UCS2/rmats.py \
   && rm download \
   && cd /usr/lib/x86_64-linux-gnu \
   && ln -s libgsl.so libgsl.so.0 \
   && cd $HOME \
+  && ln -s /rMATS.${SOFTWARE_VERSION}/rMATS-turbo-Linux-UCS4/rmats.py /usr/bin/rmats.py \
   && apt-get autoremove -y \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
