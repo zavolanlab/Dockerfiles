@@ -22,4 +22,4 @@ LABEL maintainer.license="https://spdx.org/licenses/Apache-2.0"
 ENV SOFTWARE_VERSION 0.1
 
 
-COPY *.pl /usr/bin/
+COPY sam_trx_to_sam_gen.pl /usr/bin/
