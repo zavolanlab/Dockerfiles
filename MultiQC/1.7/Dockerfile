@@ -26,5 +26,4 @@ RUN apt-get update -y \
   && pip install --upgrade pip \
   && pip install multiqc==${SOFTWARE_VERSION} \
   && apt-get autoremove -y && apt-get clean \
-  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
-
+  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
