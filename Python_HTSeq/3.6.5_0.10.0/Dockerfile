@@ -25,4 +25,4 @@ ENV SOFTWARE_VERSION 3.6.5_0.10.0
 RUN apt-get update -y \
   && apt-get autoremove -y && apt-get clean \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
-  && pip install HTSeq==0.10.0
+  && pip install HTSeq==0.10.0 matplotlib==3.0.2
