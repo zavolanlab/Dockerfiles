@@ -24,6 +24,6 @@ ENV SOFTWARE_VERSION 3.6.5
 ##### INSTALL #####
 RUN apt-get update -y \
   && pip install --upgrade pip \
-  && pip install wget==3.2 Biopython==1.72 pandas==0.24.1 \
+  && pip install wget==3.2 Biopython==1.72 pandas==0.24.1 HTSeq==0.10.0 matplotlib==3.0.2 \
   && apt-get autoremove -y && apt-get clean \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
