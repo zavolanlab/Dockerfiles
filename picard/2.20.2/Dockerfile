@@ -1,5 +1,5 @@
 ##### BASE IMAGE #####
-FROM java:8
+FROM openjdk:8 
 
 ##### METADATA #####
 LABEL base.image="java:8"
@@ -23,8 +23,8 @@ ENV SOFTWARE_VERSION 2.20.2
 
 ##### INSTALL #####
 RUN apt-get update \
-    && apt-get --no-install-recommends install -y --force-yes git ant wget \
-    && apt-get clean autoclean \
-    && apt-get autoremove -y \
+    && apt-get --no-install-recommends install -y git ant wget \
     && wget https://github.com/broadinstitute/picard/releases/download/${SOFTWARE_VERSION}/picard.jar \
-    && cp picard.jar /usr/local/bin/
+    && cp picard.jar /usr/local/bin/ \
+    && apt-get clean autoclean \
+    && apt-get autoremove -y git wget
