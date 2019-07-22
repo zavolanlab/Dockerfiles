@@ -45,7 +45,7 @@ RUN cd /opt/ && \
   cd omniCLIP && \
   git checkout 77159cd1a0119cbf3b067dbfed0cba73b1091e91 && \
   chmod +x /opt/omniCLIP/omniCLIP.py && \
-  chmod + x /opt/omniCLIP/data_parsing/CreateGeneAnnotDB.py && \
+  chmod +x /opt/omniCLIP/data_parsing/CreateGeneAnnotDB.py && \
   rm -rf .git && \
   cd /opt/omniCLIP/stat/ && \
   ./CompileCython.sh
@@ -53,6 +53,9 @@ RUN cd /opt/ && \
 #  && apt-get autoremove -y \
 #  && apt-get clean \
 #  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+RUN ln -s /opt/omniCLIP/omniCLIP.py /usr/local/bin/omniCLIP.py && \
+    ln -s /opt/omniCLIP/data_parsing/CreateGeneAnnotDB.py /usr/local/bin/CreateGeneAnnotDB.py
 
 ENV PYTHONPATH=${PYTHONPATH}:/opt/omniCLIP:/opt/omniCLIP/stat:/opt/omniCLIP/data_parsing
 
