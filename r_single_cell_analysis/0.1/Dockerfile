@@ -37,7 +37,7 @@ RUN pip3 install umap-learn
 
 ## Install R packages
 RUN \
-  R -e 'chooseCRANmirror(ind=52); install.packages(c("Rcpp","RcppArmadillo", "Matrix", "mgcv", "abind","igraph","h5","Rtsne", "cluster","data.table"))'
+  R -e 'chooseCRANmirror(ind=52); install.packages(c("Rcpp","RcppArmadillo", "Matrix", "mgcv", "abind","igraph","h5","Rtsne", "cluster","data.table", "umap"))'
 
 ## Install Bioconductor packages
 RUN \
