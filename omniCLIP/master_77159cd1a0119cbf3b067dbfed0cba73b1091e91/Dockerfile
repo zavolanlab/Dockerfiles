@@ -30,7 +30,7 @@ RUN apt-get update && \
     brewer2mpl==1.4 \
     cython==0.24.1 \
     gffutils==0.8.7.1 \
-    h5py==2.6.0 \
+    h5py==2.9.0 \
     intervaltree==2.1.0 \
     matplotlib==1.5.3 \
     pandas==0.19.2 \
