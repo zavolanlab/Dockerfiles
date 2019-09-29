@@ -56,7 +56,7 @@ against one or more regions specified in a BED file.\n"
 author <- "Author: Alexander Kanitz"
 affiliation <- "Affiliation: Biozentrum, University of Basel"
 email <- "Email: alexander.kanitz@alumni.ethz.ch"
-version <- "Version: 1.0.0 (29-SEP-2019)"
+version <- "Version: 1.0.1 (29-SEP-2019)"
 requirements <- c("optparse", "rtracklayer", "GenomicAlignments", "tools")
 requirements_txt <- paste("Requires:", paste(requirements, collapse=", "), sep=" ")
 msg <- paste(description, author, affiliation, email, version, requirements_txt, sep="\n")
@@ -269,7 +269,7 @@ for(index in seq_along(bed)) {
         colnames(df) <- c("seq", "count")
         df[["seq"]] <- as.character(df[["seq"]])
         # Filter out any alignments that do not make the specified minimum count cutoff
-        df[df[["count"]] >= count.min, ]
+        df <- df[df[["count"]] >= count.min, ]
     }
 
     #---> SORTING ALIGNMENTS  <---#
@@ -343,7 +343,12 @@ for(index in seq_along(bed)) {
     }
 
     #---> WRITE OUTPUT  <---#
-    fl.out <- file.path(dir.out, paste(fl.prefix, mcols(region)[["name"]], "pileup", "tab", sep="."))
+    if (collapse) {
+        name.file <- paste(fl.prefix, mcols(region)[["name"]], "min", as.character(count.min), "pileup", "tab", sep=".")
+    } else {
+        name.file <- paste(fl.prefix, mcols(region)[["name"]], "uncollapsed", "pileup", "tab", sep=".")
+    }
+    fl.out <- file.path(dir.out, name.file)
     # Print status message
     if (verb) cat("Writing output to file '", fl.out, "'...\n", sep="")
     # Write tab-separated output
