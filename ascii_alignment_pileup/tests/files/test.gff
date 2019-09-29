@@ -1,3 +1,0 @@
-9	.	miRNA_primary_transcript	94175957	94176036	.	+	.	ID=MI0000060;Alias=MI0000060;Name=hsa-let-7a-1
-9	.	miRNA	94175962	94175983	.	+	.	ID=MIMAT0000062_2;Alias=MIMAT0000062;Name=hsa-let-7a-5p;Derives_from=MI0000060
-9	.	miRNA	94176013	94176033	.	+	.	ID=MIMAT0004481_1;Alias=MIMAT0004481;Name=hsa-let-7a-3p;Derives_from=MI0000060
