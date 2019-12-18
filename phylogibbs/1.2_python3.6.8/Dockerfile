@@ -48,7 +48,6 @@ RUN apt-get update \
   && unlink /usr/bin/python \
   && ln -s /usr/bin/python3 /usr/bin/python \
   && curl https://bootstrap.pypa.io/ez_setup.py -o - | python \
-  && rm setuptools-* \
   && pip install pandas==0.23.3 seaborn==0.9.0 pysam==0.14.1 pyfasta==0.5.2 scikit-learn==0.19.2 \
   && apt-get remove --purge --yes make g++ unzip \
   && apt-get autoremove --purge --yes
