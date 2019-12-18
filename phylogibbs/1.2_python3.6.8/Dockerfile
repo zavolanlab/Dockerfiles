@@ -30,7 +30,7 @@ RUN apt-get update \
   && apt-get install -y tzdata \
   && ln -fs /usr/share/zoneinfo/Europe/Berlin /etc/localtime \
   && dpkg-reconfigure --frontend noninteractive tzdata \
-  && apt-get install --yes make g++ unzip wget libgslcblas0 libglib2.0-dev libgtk2.0 \
+  && apt-get install --yes make g++ unzip wget libgslcblas0 libglib2.0-dev libgtk2.0 curl \
   && tar xzvf gsl-${LIBRARY_VERSION}.tar.gz \
   && cd gsl-${LIBRARY_VERSION} \
   && ./configure \
