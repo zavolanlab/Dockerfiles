@@ -30,24 +30,28 @@ RUN apt-get update \
   && apt-get install -y tzdata \
   && ln -fs /usr/share/zoneinfo/Europe/Berlin /etc/localtime \
   && dpkg-reconfigure --frontend noninteractive tzdata \
-  && apt-get install --yes make g++ unzip wget libgslcblas0 libglib2.0-dev libgtk2.0 curl \
-  && tar xzvf gsl-${LIBRARY_VERSION}.tar.gz \
+  && apt-get install --yes make g++ unzip wget libgslcblas0 libglib2.0-dev libgtk2.0 curl
+
+RUN  tar xzvf gsl-${LIBRARY_VERSION}.tar.gz \
   && cd gsl-${LIBRARY_VERSION} \
   && ./configure \
   && make \
   && make install \
-  && cd ../ \
-  && unzip phylogibbs-${SOFTWARE_VERSION}.zip \
+  && cd ../
+
+RUN unzip phylogibbs-${SOFTWARE_VERSION}.zip \
   && cd phylogibbs-${SOFTWARE_VERSION} \
   && ./configure \
   && make \
   && make install \
   && cd ../ \
   && rm phylogibbs-${SOFTWARE_VERSION}.zip \
-  && rm gsl-${LIBRARY_VERSION}.tar.gz \
-  && unlink /usr/bin/python \
+  && rm gsl-${LIBRARY_VERSION}.tar.gz
+
+RUN unlink /usr/bin/python \
   && ln -s /usr/bin/python3 /usr/bin/python \
   && curl https://bootstrap.pypa.io/ez_setup.py -o - | python \
+  && python -m easy_install pip \
+  && rm setuptools-* \
   && pip install pandas==0.23.3 seaborn==0.9.0 pysam==0.14.1 pyfasta==0.5.2 scikit-learn==0.19.2 \
-  && apt-get remove --purge --yes make g++ unzip \
-  && apt-get autoremove --purge --yes
+  && apt-get remove --purge --yes make g++ unzip
