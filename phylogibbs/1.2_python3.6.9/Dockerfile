@@ -22,6 +22,7 @@ LABEL maintainer.license="https://spdx.org/licenses/Apache-2.0"
 ENV SOFTWARE_VERSION 1.2
 ENV LIBRARY_VERSION 1.16
 ENV DEBIAN_FRONTEND noninteractive
+ENV LD_LIBRARY_PATH=/usr/local/lib/
 
 COPY phylogibbs-${SOFTWARE_VERSION}.zip $HOME
 COPY gsl-${LIBRARY_VERSION}.tar.gz $HOME
@@ -32,26 +33,27 @@ RUN apt-get update \
   && dpkg-reconfigure --frontend noninteractive tzdata \
   && apt-get install --yes make g++ unzip wget libgslcblas0 libglib2.0-dev libgtk2.0 curl
 
+RUN unlink /usr/bin/python \
+  && ln -s /usr/bin/python3 /usr/bin/python \
+  && curl https://bootstrap.pypa.io/ez_setup.py -o - | python \
+  && python -m easy_install pip \
+  && rm setuptools-* \
+  && pip install pandas==0.23.3 seaborn==0.9.0 pysam==0.14.1 pyfasta==0.5.2 scikit-learn==0.19.2
+
 RUN  tar xzvf gsl-${LIBRARY_VERSION}.tar.gz \
   && cd gsl-${LIBRARY_VERSION} \
   && ./configure \
   && make \
   && make install \
-  && cd ../
+  && cd ../ \
+  && unlink /usr/local/lib/libgsl.so \
+  && unlink /usr/local/lib/libgsl.so.0 \
+  && ln -s /gsl-1.16/.libs/libgsl.so.0.17.0 /usr/local/lib/libgsl.so \
+  && ln -s /gsl-1.16/.libs/libgsl.so.0.17.0 /usr/local/lib/libgsl.so.0
 
 RUN unzip phylogibbs-${SOFTWARE_VERSION}.zip \
   && cd phylogibbs-${SOFTWARE_VERSION} \
   && ./configure \
   && make \
   && make install \
-  && cd ../ \
-  && rm phylogibbs-${SOFTWARE_VERSION}.zip \
-  && rm gsl-${LIBRARY_VERSION}.tar.gz
-
-RUN unlink /usr/bin/python \
-  && ln -s /usr/bin/python3 /usr/bin/python \
-  && curl https://bootstrap.pypa.io/ez_setup.py -o - | python \
-  && python -m easy_install pip \
-  && rm setuptools-* \
-  && pip install pandas==0.23.3 seaborn==0.9.0 pysam==0.14.1 pyfasta==0.5.2 scikit-learn==0.19.2 \
-  && apt-get remove --purge --yes make g++ unzip
+  && cd ../
