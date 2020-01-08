@@ -24,7 +24,7 @@ ENV SOFTWARE_VERSION 1.10
 
 ##### INSTALL #####
 RUN apt-get update -y \
-  && apt-get install -y git gcc make g++ cmake libboost-all-dev liblzma-dev libbz2-dev zlib1g-dev libncurses5-dev ca-certificates zlib1g-dev curl unzip autoconf \
+  && apt-get install -y git gcc make g++ cmake libboost-all-dev liblzma-dev libbz2-dev zlib1g-dev libncurses5-dev ca-certificates zlib1g-dev curl libcurl4-openssl-dev unzip autoconf \
   && apt-get clean \
   && curl -k -L https://github.com/samtools/samtools/releases/download/${SOFTWARE_VERSION}/samtools-${SOFTWARE_VERSION}.tar.bz2 -o samtools-${SOFTWARE_VERSION}.tar.bz2 \
   && tar xvjf samtools-${SOFTWARE_VERSION}.tar.bz2 \
