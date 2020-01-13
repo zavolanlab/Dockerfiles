@@ -1,8 +1,8 @@
 ##### BASE IMAGE #####
-FROM ubuntu:18.04
+FROM python:2.7.17
 
 ##### METADATA #####
-LABEL base.image="ubuntu:18.04"
+LABEL base.image="python:2.7.17"
 LABEL version="1"
 LABEL software="omniCLIP"
 LABEL software.version="master_aa75fabab8f6beddaf5181a671be4b13ed7f6651"
@@ -19,27 +19,24 @@ LABEL maintainer.license="https://spdx.org/licenses/Apache-2.0"
 
 WORKDIR /opt/
 
-
 ##### INSTALL #####
 RUN apt-get update && \
-  apt-get install -y tzdata && \
-  ln -fs /usr/share/zoneinfo/Europe/Berlin /etc/localtime && \
-  dpkg-reconfigure --frontend noninteractive tzdata && \
-  apt-get install -y git gcc make g++ cmake libboost-all-dev liblzma-dev libbz2-dev ca-certificates zlib1g-dev curl unzip autoconf python-pip python-numpy python-tk && \
+  apt-get install -y python-numpy && \  
   pip install \
-    biopython==1.68 \
-    brewer2mpl==1.4 \
-    cython==0.24.1 \
-    gffutils==0.8.7.1 \
-    h5py==2.9.0 \
+    biopython==1.70 \
+    brewer2mpl==1.4.1 \
+    Cython==0.28.1 \
+    gffutils==0.9 \
+    h5py==2.7.1 \
     intervaltree==2.1.0 \
-    matplotlib==1.5.3 \
-    pandas==0.19.2 \
+    matplotlib==2.2.2 \
+    multiprocessing==2.6.2.1 \
+    pandas==0.22.0 \
     prettyplotlib==0.1.7 \
-    pysam==0.9.1.4 \
-    scikit-learn==0.18.1 \
-    scipy==0.19.0 \
-    statsmodels==0.6.1
+    pysam==0.14 \
+    scikit-learn==0.19.1 \
+    scipy==1.0.0 \
+    statsmodels==0.8.0
 
 RUN cd /opt/ && \
   git clone https://github.com/philippdre/omniCLIP.git && \
@@ -49,14 +46,8 @@ RUN cd /opt/ && \
   chmod +x /opt/omniCLIP/data_parsing/CreateGeneAnnotDB.py && \
   rm -rf .git && \
   cd /opt/omniCLIP/stat/ && \
+  sed -i 's/\/usr\/include\/python2.7/\/usr\/local\/include\/python2.7/' CompileCython.sh && \
   ./CompileCython.sh
-
-#  && apt-get autoremove -y \
-#  && apt-get clean \
-#  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
-RUN ln -s /opt/omniCLIP/omniCLIP.py /usr/local/bin/omniCLIP.py && \
-    ln -s /opt/omniCLIP/data_parsing/CreateGeneAnnotDB.py /usr/local/bin/CreateGeneAnnotDB.py
 
 ENV PYTHONPATH=${PYTHONPATH}:/opt/omniCLIP:/opt/omniCLIP/stat:/opt/omniCLIP/data_parsing
 
