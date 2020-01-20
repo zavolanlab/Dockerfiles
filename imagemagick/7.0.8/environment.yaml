@@ -1,0 +1,22 @@
+###############################################################################
+#
+#   Main software to be installed in the environment
+#
+#   AUTHOR: Maciej_Bak
+#   AFFILIATION: Biozentrum_University_of_Basel
+#   AFFILIATION: Swiss_Institute_of_Bioinformatics
+#   CONTACT: maciej.bak@unibas.ch
+#   CREATED: 20-01-2020
+#   LICENSE: GPL
+#
+###############################################################################
+---
+
+channels:
+  - bioconda
+  - conda-forge
+
+dependencies:
+  - imagemagick=7.0.8
+
+...
