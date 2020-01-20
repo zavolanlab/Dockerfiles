@@ -1,0 +1,21 @@
+###############################################################################
+#
+#   Main software to be installed in the environment
+#
+#   AUTHOR: Maciej_Bak
+#   AFFILIATION: Biozentrum_University_of_Basel
+#   AFFILIATION: Swiss_Institute_of_Bioinformatics
+#   CONTACT: maciej.bak@unibas.ch
+#   CREATED: 13-12-2019
+#   LICENSE: GPL
+#
+###############################################################################
+---
+
+channels:
+  - bioconda
+
+dependencies:
+  - kallisto=0.46.0
+
+...

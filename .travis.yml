@@ -1,0 +1,46 @@
+os:
+- linux
+dist: bionic
+language: minimal
+
+services:
+- docker
+
+stages:
+# Execute upon PR or push to open PR
+- name: build_image
+  if: type = pull_request
+# Execute only upon merge into master
+- name: push_image
+  if: type = push AND branch = master
+
+jobs:
+  include:
+  - stage: build_image
+    name: Build Docker image
+    script:
+    - |
+      git diff --name-only "$TRAVIS_COMMIT_RANGE" | \
+      grep "Dockerfile" | \
+      while read -r file ; do
+        echo "Building image for Dockerfile '$file'..."
+        docker build $(dirname "$file")
+      done
+  - stage: push_image
+    name: Build image and push to Docker Hub
+    script:
+    - |
+      git diff --name-only "$TRAVIS_COMMIT_RANGE" | \
+      grep "Dockerfile" | \
+      while read -r file ; do
+        # Extract tool name and version and sanitize according to Docker rules
+        tool_name=$(dirname $(dirname "$file") | tr A-Z a-z | sed 's/[^a-z\-\_]//g')
+        version=$(basename $(dirname "$file") | sed -e 's/[^a-zA-Z0-9\_\.\-]//g' -e 's/^[\.\-]//')
+        remote="${DOCKER_ORGANIZATION}/${tool_name}:${version}"
+        echo "Building image for Dockerfile '$file'..."
+        docker build -t "$remote" $(dirname $file)
+        echo "Pushing image to '$remote'..."
+        echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+        docker push "$remote"
+      done
+
