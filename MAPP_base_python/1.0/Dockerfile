@@ -23,7 +23,7 @@ LABEL maintainer.license=""
 # COPY THE YAML & INSTALL SOFTWARE WITH CONDA
 COPY environment.yaml .
 RUN conda env update --name base --file environment.yaml
-RUN conda clean -all
+RUN conda clean --all
 
 # VARIABLES
 ARG WORKDIR="/home/container/"
