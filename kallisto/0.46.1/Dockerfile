@@ -3,9 +3,9 @@ FROM continuumio/miniconda3:4.7.10
 
 ##### METADATA #####
 LABEL base.image="continuumio/miniconda3:4.7.10"
-LABEL version="0.9"
+LABEL version="0.46.1"
 LABEL software="kallisto"
-LABEL software.version="0.46.0"
+LABEL software.version="0.46.1"
 LABEL software.description="Quantification of transcripts expression"
 LABEL software.website="https://pachterlab.github.io/kallisto/about"
 LABEL software.documentation=""
@@ -19,23 +19,9 @@ LABEL maintainer.license=""
 
 ##### VARIABLES #####
 # Use variables for convenient updates/re-usability
-ENV SOFTWARE_VERSION 0.46.0
+ENV SOFTWARE_VERSION 0.46.1
 
 # COPY THE YAML & INSTALL SOFTWARE WITH CONDA
 COPY environment.yaml .
 RUN conda env update --name base --file environment.yaml
 RUN conda clean -all
-
-# VARIABLES
-ARG WORKDIR="/home/container/"
-ARG USER="USER"
-ARG GROUP="GROUP"
-ENV PATH="${WORKDIR}:${PATH}"
-
-# CREATE USER
-RUN groupadd -r ${GROUP} && useradd --no-log-init -r -g ${GROUP} ${USER}
-
-# SET ENVIRONMENT
-WORKDIR ${WORKDIR}
-RUN chown -R ${USER}:${GROUP} ${WORKDIR} && chmod 700 ${WORKDIR}
-USER ${USER}
