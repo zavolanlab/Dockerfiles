@@ -1,8 +1,8 @@
 ##### BASE IMAGE #####
-FROM continuumio/miniconda3:4.7.10
+FROM ubuntu:18.04
 
 ##### METADATA #####
-LABEL base.image="continuumio/miniconda3:4.7.10"
+LABEL base.image="ubuntu:18.04"
 LABEL version="0.46.1"
 LABEL software="kallisto"
 LABEL software.version="0.46.1"
@@ -11,17 +11,18 @@ LABEL software.website="https://pachterlab.github.io/kallisto/about"
 LABEL software.documentation=""
 LABEL software.license=""
 LABEL software.tags="Transcriptomics"
-LABEL maintainer="maciej.bak@unibas.ch"
+LABEL maintainer="foivos.gypas@unibas.ch"
 LABEL maintainer.organisation="Biozentrum, University of Basel"
 LABEL maintainer.location="Klingelbergstrasse 50/70, CH-4056 Basel, Switzerland"
 LABEL maintainer.lab="Zavolan Lab"
-LABEL maintainer.license=""
+LABEL maintainer.license="https://spdx.org/licenses/Apache-2.0"
 
-##### VARIABLES #####
-# Use variables for convenient updates/re-usability
+#### VARIABLES #####
 ENV SOFTWARE_VERSION 0.46.1
 
-# COPY THE YAML & INSTALL SOFTWARE WITH CONDA
-COPY environment.yaml .
-RUN conda env update --name base --file environment.yaml
-RUN conda clean -all
+RUN apt-get update \
+  && apt-get install -y wget \
+  && wget https://github.com/pachterlab/kallisto/releases/download/v${SOFTWARE_VERSION}/kallisto_linux-v${SOFTWARE_VERSION}.tar.gz \
+  && tar -xzvf kallisto_linux-v${SOFTWARE_VERSION}.tar.gz \
+  && ln -s /kallisto/kallisto /usr/local/bin/ \
+  && rm kallisto_linux-v${SOFTWARE_VERSION}.tar.gz
