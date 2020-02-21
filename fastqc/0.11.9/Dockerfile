@@ -5,7 +5,7 @@ FROM java:8
 LABEL base.image="java:8"
 LABEL version="1"
 LABEL software="FastQC"
-LABEL software.version="0.11.8"
+LABEL software.version="0.11.9"
 LABEL software.description="A quality control application for high throughput sequence data"
 LABEL software.website="https://www.bioinformatics.babraham.ac.uk/projects/fastqc/"
 LABEL software.documentation="https://www.bioinformatics.babraham.ac.uk/projects/fastqc/"
@@ -19,11 +19,10 @@ LABEL maintainer.license="https://spdx.org/licenses/Apache-2.0"
 
 ##### VARIABLES #####
 # Use variables for convenient updates/re-usability
-ENV SOFTWARE_VERSION 0.11.8
+ENV SOFTWARE_VERSION 0.11.9
 
 ##### INSTALL #####
-RUN apt-get update \
-    && apt-get --no-install-recommends install -y --force-yes wget \
+RUN apt-get --no-install-recommends install -y wget \
     && wget https://www.bioinformatics.babraham.ac.uk/projects/fastqc/fastqc_v${SOFTWARE_VERSION}.zip \
     && unzip fastqc_v${SOFTWARE_VERSION}.zip \
     && chmod +x /FastQC/fastqc \

@@ -1,9 +1,8 @@
 ##### BASE IMAGE #####
-FROM java:8
+FROM openjdk:8-jdk as build
 
 ##### METADATA #####
-LABEL base.image="java:8"
-LABEL version="1"
+LABEL base.image="openjdk:8-jdk"
 LABEL software="FastQC"
 LABEL software.version="0.11.8"
 LABEL software.description="A quality control application for high throughput sequence data"
@@ -18,16 +17,16 @@ LABEL maintainer.lab="Zavolan Lab"
 LABEL maintainer.license="https://spdx.org/licenses/Apache-2.0"
 
 ##### VARIABLES #####
-# Use variables for convenient updates/re-usability
 ENV SOFTWARE_VERSION 0.11.8
 
-##### INSTALL #####
-RUN apt-get update \
-    && apt-get --no-install-recommends install -y --force-yes wget \
-    && wget https://www.bioinformatics.babraham.ac.uk/projects/fastqc/fastqc_v${SOFTWARE_VERSION}.zip \
-    && unzip fastqc_v${SOFTWARE_VERSION}.zip \
-    && chmod +x /FastQC/fastqc \
-    && ln -s /FastQC/fastqc /usr/local/bin/ \
-    && rm fastqc_v${SOFTWARE_VERSION}.zip \
-    && apt-get clean autoclean \
-    && apt-get autoremove -y wget 
+##### INSTALLATION #####
+RUN wget https://www.bioinformatics.babraham.ac.uk/projects/fastqc/fastqc_v${SOFTWARE_VERSION}.zip
+RUN unzip fastqc_v${SOFTWARE_VERSION}.zip
+RUN chmod +x /FastQC/fastqc
+RUN ln -s /FastQC/fastqc /usr/bin/
+
+##### CLEAN IMAGE ####
+FROM openjdk:8-jdk
+COPY --from=build /FastQC /FastQC
+RUN ln -s /FastQC/fastqc /usr/bin/
+
