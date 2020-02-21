@@ -4,7 +4,7 @@ FROM openjdk:8-jdk as build
 ##### METADATA #####
 LABEL base.image="openjdk:8-jdk"
 LABEL software="FastQC"
-LABEL software.version="0.11.9"
+LABEL software.version="0.11.8"
 LABEL software.description="A quality control application for high throughput sequence data"
 LABEL software.website="https://www.bioinformatics.babraham.ac.uk/projects/fastqc/"
 LABEL software.documentation="https://www.bioinformatics.babraham.ac.uk/projects/fastqc/"
@@ -17,7 +17,7 @@ LABEL maintainer.lab="Zavolan Lab"
 LABEL maintainer.license="https://spdx.org/licenses/Apache-2.0"
 
 ##### VARIABLES #####
-ENV SOFTWARE_VERSION 0.11.9
+ENV SOFTWARE_VERSION 0.11.8
 
 ##### INSTALLATION #####
 RUN wget https://www.bioinformatics.babraham.ac.uk/projects/fastqc/fastqc_v${SOFTWARE_VERSION}.zip
