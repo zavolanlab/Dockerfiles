@@ -1,0 +1,40 @@
+##### BASE IMAGE #####
+FROM openjdk:8-jdk-slim-buster as build
+
+##### METADATA #####
+LABEL base.image="openjdk:8-jdk-slim-buster"
+LABEL version="1"
+LABEL software="FastQC"
+LABEL software.version="0.11.9"
+LABEL software.description="A quality control application for high throughput sequence data"
+LABEL software.website="https://www.bioinformatics.babraham.ac.uk/projects/fastqc/"
+LABEL software.documentation="https://www.bioinformatics.babraham.ac.uk/projects/fastqc/"
+LABEL software.license="GPL v3 or later."
+LABEL software.tags="Genomics,Transcriptomics"
+LABEL maintainer="foivos.gypas@unibas.ch"
+LABEL maintainer.organisation="Biozentrum, University of Basel"
+LABEL maintainer.location="Klingelbergstrasse 50/70, CH-4056 Basel, Switzerland"
+LABEL maintainer.lab="Zavolan Lab"
+LABEL maintainer.license="https://spdx.org/licenses/Apache-2.0"
+
+##### VARIABLES #####
+ENV SOFTWARE_VERSION 0.11.9
+ENV PACKAGES wget unzip
+
+##### INSTALLATION #####
+RUN apt-get update
+RUN apt-get install -y --no-install-recommends ${PACKAGES}
+RUN wget https://www.bioinformatics.babraham.ac.uk/projects/fastqc/fastqc_v${SOFTWARE_VERSION}.zip
+RUN unzip fastqc_v${SOFTWARE_VERSION}.zip
+RUN chmod +x /FastQC/fastqc
+RUN ln -s /FastQC/fastqc /usr/bin/
+
+#### CLEAN IMAGE ####
+FROM openjdk:8-jdk-slim-buster
+COPY --from=build /FastQC /FastQC
+ENV PACKAGES_SLIM libfindbin-libs-perl
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends ${PACKAGES_SLIM} \
+  && rm -rf /var/lib/apt/lists/* \
+  && ln -s /FastQC/fastqc /usr/bin/
+
