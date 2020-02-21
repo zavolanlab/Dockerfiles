@@ -19,13 +19,15 @@ LABEL maintainer.license="https://spdx.org/licenses/Apache-2.0"
 
 #### VARIABLES #####
 ENV SOFTWARE_VERSION 0.46.1
+ENV PACKAGES wget ca-certificates
 
-RUN apt-get update \
-  && apt-get install -y wget \
-  && wget https://github.com/pachterlab/kallisto/releases/download/v${SOFTWARE_VERSION}/kallisto_linux-v${SOFTWARE_VERSION}.tar.gz \
-  && tar -xzvf kallisto_linux-v${SOFTWARE_VERSION}.tar.gz \
-  && mv /kallisto/kallisto /usr/bin/
+#### INSTALL ####
+RUN apt-get update
+RUN apt-get install -y --no-install-recommends ${PACKAGES}
+RUN wget https://github.com/pachterlab/kallisto/releases/download/v${SOFTWARE_VERSION}/kallisto_linux-v${SOFTWARE_VERSION}.tar.gz
+RUN tar -xzvf kallisto_linux-v${SOFTWARE_VERSION}.tar.gz
 
+#### CREATE CLEAN IMAGE ####
 FROM ubuntu:18.04
-COPY --from=build /usr/bin/kallisto /usr/bin/kallisto
+COPY --from=build /kallisto/kallisto /usr/bin/
 
