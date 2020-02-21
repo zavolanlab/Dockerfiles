@@ -22,8 +22,7 @@ LABEL maintainer.license="https://spdx.org/licenses/Apache-2.0"
 ENV SOFTWARE_VERSION 0.11.9
 
 ##### INSTALL #####
-RUN apt-get update \
-    && apt-get --no-install-recommends install -y --force-yes wget \
+RUN apt-get --no-install-recommends install -y wget \
     && wget https://www.bioinformatics.babraham.ac.uk/projects/fastqc/fastqc_v${SOFTWARE_VERSION}.zip \
     && unzip fastqc_v${SOFTWARE_VERSION}.zip \
     && chmod +x /FastQC/fastqc \
