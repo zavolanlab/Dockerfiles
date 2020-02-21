@@ -17,17 +17,17 @@ LABEL maintainer.location="Klingelbergstrasse 50/70, CH-4056 Basel, Switzerland"
 LABEL maintainer.lab="Zavolan Lab"
 LABEL maintainer.license="https://spdx.org/licenses/Apache-2.0"
 
-#### VARIABLES #####
+##### VARIABLES #####
 ENV SOFTWARE_VERSION 0.46.1
 ENV PACKAGES wget ca-certificates
 
-#### INSTALL ####
+##### INSTALLATION #####
 RUN apt-get update
 RUN apt-get install -y --no-install-recommends ${PACKAGES}
 RUN wget https://github.com/pachterlab/kallisto/releases/download/v${SOFTWARE_VERSION}/kallisto_linux-v${SOFTWARE_VERSION}.tar.gz
 RUN tar -xzvf kallisto_linux-v${SOFTWARE_VERSION}.tar.gz
 
-#### CREATE CLEAN IMAGE ####
+#### CLEAN IMAGE ####
 FROM ubuntu:18.04
 COPY --from=build /kallisto/kallisto /usr/bin/
 
