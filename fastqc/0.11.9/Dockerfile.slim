@@ -3,7 +3,6 @@ FROM openjdk:8-jdk-slim-buster as build
 
 ##### METADATA #####
 LABEL base.image="openjdk:8-jdk-slim-buster"
-LABEL version="1"
 LABEL software="FastQC"
 LABEL software.version="0.11.9"
 LABEL software.description="A quality control application for high throughput sequence data"
@@ -32,9 +31,9 @@ RUN ln -s /FastQC/fastqc /usr/bin/
 #### CLEAN IMAGE ####
 FROM openjdk:8-jdk-slim-buster
 COPY --from=build /FastQC /FastQC
-ENV PACKAGES_SLIM libfindbin-libs-perl
+ENV PACKAGES libfindbin-libs-perl
 RUN apt-get update \
-  && apt-get install -y --no-install-recommends ${PACKAGES_SLIM} \
+  && apt-get install -y --no-install-recommends ${PACKAGES} \
   && rm -rf /var/lib/apt/lists/* \
   && ln -s /FastQC/fastqc /usr/bin/
 
