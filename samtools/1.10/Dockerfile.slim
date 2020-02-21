@@ -1,0 +1,40 @@
+##### BASE IMAGE #####
+FROM ubuntu:18.04 as build
+
+##### METADATA #####
+LABEL base.image="ubuntu:18.04"
+LABEL version="1"
+LABEL software="samtools"
+LABEL software.version="1.10"
+LABEL software.description="Reading/writing/editing/indexing/viewing SAM/BAM/CRAM format"
+LABEL software.website="https://github.com/samtools/samtools"
+LABEL software.documentation="https://github.com/samtools/samtools"
+LABEL software.license="MIT"
+LABEL software.tags="Genomics,Transcriptomics"
+LABEL maintainer="foivos.gypas@unibas.ch"
+LABEL maintainer.organisation="Biozentrum, University of Basel"
+LABEL maintainer.location="Klingelbergstrasse 50/70, CH-4056 Basel, Switzerland"
+LABEL maintainer.lab="Zavolan Lab"
+LABEL maintainer.license="https://spdx.org/licenses/Apache-2.0"
+
+##### VARIABLES #####
+ENV SOFTWARE_VERSION 1.10
+ENV PACKAGES wget ca-certificates gcc make g++ cmake libboost-all-dev liblzma-dev libbz2-dev zlib1g-dev libncurses5-dev zlib1g-dev libcurl4-openssl-dev unzip autoconf
+
+##### INSTALLATION #####
+RUN apt-get update
+RUN apt-get install -y --no-install-recommends ${PACKAGES}
+RUN wget https://github.com/samtools/samtools/releases/download/${SOFTWARE_VERSION}/samtools-${SOFTWARE_VERSION}.tar.bz2
+RUN tar -xjvf samtools-${SOFTWARE_VERSION}.tar.bz2
+RUN cd samtools-${SOFTWARE_VERSION} && make && make install
+
+#### CLEAN IMAGE ####
+FROM ubuntu:18.04
+ENV SOFTWARE_VERSION 1.10
+#ENV PACKAGES wget ca-certificates gcc make g++ cmake libboost-all-dev liblzma-dev libbz2-dev zlib1g-dev libncurses5-dev zlib1g-dev libcurl4-openssl-dev unzip autoconf
+ENV PACKAGES libcurl4-openssl-dev
+COPY --from=build /samtools-${SOFTWARE_VERSION}/samtools /usr/bin/
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends ${PACKAGES} \
+  && rm -rf /var/lib/apt/lists/*
+

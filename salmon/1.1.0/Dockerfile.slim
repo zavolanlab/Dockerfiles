@@ -1,0 +1,33 @@
+##### BASE IMAGE #####
+FROM ubuntu:18.04 as build
+
+##### METADATA #####
+LABEL base.image="ubuntu:18.04"
+LABEL software="salmon"
+LABEL software.version="1.1.0"
+LABEL software.description="Quantification of transcripts expression"
+LABEL software.website="https://github.com/COMBINE-lab/salmon/tree/v1.1.0"
+LABEL software.documentation="https://salmon.readthedocs.io/en/stable/"
+LABEL software.license="GNU General Public License v3.0"
+LABEL software.tags="Transcriptomics"
+LABEL maintainer="alexander.kanitz@alumni.ethz.ch"
+LABEL maintainer.organisation="Biozentrum, University of Basel"
+LABEL maintainer.location="Klingelbergstrasse 50/70, CH-4056 Basel, Switzerland"
+LABEL maintainer.lab="Zavolan Lab"
+LABEL maintainer.license="https://github.com/COMBINE-lab/salmon/blob/v1.1.0/LICENSE"
+
+##### VARIABLES #####
+ENV SOFTWARE_VERSION 1.1.0
+ENV PACKAGES wget ca-certificates
+
+##### INSTALLATION #####
+RUN apt-get update
+RUN apt-get install -y --no-install-recommends ${PACKAGES}
+RUN wget https://github.com/COMBINE-lab/salmon/releases/download/v${SOFTWARE_VERSION}/salmon-${SOFTWARE_VERSION}_linux_x86_64.tar.gz
+RUN tar -xzvf salmon-${SOFTWARE_VERSION}_linux_x86_64.tar.gz
+
+##### CLEAN IMAGE #####
+FROM ubuntu:18.04
+COPY --from=build /salmon-latest_linux_x86_64/bin/salmon /usr/bin/
+COPY --from=build /salmon-latest_linux_x86_64/lib/* /usr/lib/
+

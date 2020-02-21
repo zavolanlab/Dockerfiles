@@ -1,0 +1,35 @@
+##### BASE IMAGE #####
+FROM python:3.6.5-slim-jessie as build
+
+##### METADATA #####
+LABEL base.image="python:3.6.5-slim-jessie"
+LABEL version="2"
+LABEL software="cutadapt"
+LABEL software.version="1.16"
+LABEL software.description="Cutadapt finds and removes adapter sequences, primers, poly-A tails and other types of unwanted sequence from your high-throughput sequencing reads."
+LABEL software.website="http://cutadapt.readthedocs.io/en/stable/guide.html"
+LABEL software.documentation="http://cutadapt.readthedocs.io/en/stable/guide.html"
+LABEL software.license=""
+LABEL software.tags="Genomics,Transcriptomics"
+LABEL maintainer="foivos.gypas@unibas.ch"
+LABEL maintainer.organisation="Biozentrum, University of Basel"
+LABEL maintainer.location="Klingelbergstrasse 50/70, CH-4056 Basel, Switzerland"
+LABEL maintainer.lab="Zavolan Lab"
+LABEL maintainer.license="https://spdx.org/licenses/Apache-2.0"
+
+##### VARIABLES #####
+ENV SOFTWARE_VERSION 1.16
+ENV PACKAGES pigz
+ENV PYTHON_PACKAGES cutadapt==${SOFTWARE_VERSION}
+
+##### INSTALLATION #####
+RUN apt-get update -y
+RUN apt-get install -y --no-install-recommends ${PACKAGES}
+RUN mkdir /install
+WORKDIR /install
+RUN pip install --prefix="/install" ${PYTHON_PACKAGES}
+
+##### CLEAN IMAGE #####
+FROM python:3.6.5-slim-jessie
+COPY --from=build /install /usr/local
+
