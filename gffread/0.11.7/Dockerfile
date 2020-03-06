@@ -19,7 +19,7 @@ LABEL base.image="ubuntu:18.04"
 
 ##### VARIABLES #####
 ENV SOFTWARE_VERSION 0.11.7
-ENV PACKAGES wget ca-certificates build-essential libz-dev
+ENV PACKAGES wget ca-certificates
 
 ##### INSTALLATION #####
 RUN apt-get update
@@ -31,6 +31,3 @@ RUN tar -xzvf gffread-${SOFTWARE_VERSION}.Linux_x86_64.tar.gz
 FROM ubuntu:18.04
 ENV SOFTWARE_VERSION 0.11.7
 COPY --from=build /gffread-${SOFTWARE_VERSION}.Linux_x86_64/gffread /usr/bin/
-RUN apt-get update \
-  && apt-get install -y --no-install-recommends ${PACKAGES} \
-  && rm -rf /var/lib/apt/lists/*
