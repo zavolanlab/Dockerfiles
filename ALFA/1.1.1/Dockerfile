@@ -18,5 +18,6 @@ LABEL maintainer.lab="Zavolan Lab"
 
 ##### INSTALL #####
 RUN apt-get update -y \
-  && pip install alfa==1.1.1
+  && pip install cython==0.29.15
+RUN pip install alfa==1.1.1
 
