@@ -17,6 +17,6 @@ LABEL maintainer.location="Klingelbergstrasse 50/70, CH-4056 Basel, Switzerland"
 LABEL maintainer.lab="Zavolan Lab"
 
 ##### INSTALL #####
-RUN apt-get update \
+RUN apt-get update -y \
   && pip install alfa==1.1.1
 
