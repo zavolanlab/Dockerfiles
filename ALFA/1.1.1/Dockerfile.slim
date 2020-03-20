@@ -1,0 +1,39 @@
+##### BASE IMAGE #####
+FROM "python:3.7.7" as build
+
+##### METADATA #####
+LABEL base.image="python:3.7.7-slim-buster"
+LABEL software="ALFA"
+LABEL software.version="1.1.1"
+LABEL software.description="ALFA provides a global overview of features distribution composing NGS dataset(s)"
+LABEL software.website="https://github.com/biocompibens/ALFA"
+LABEL software.documentation="https://github.com/biocompibens/ALFA#manual"
+LABEL software.license="https://github.com/biocompibens/ALFA/blob/master/LICENSE.txt"
+LABEL software.tags="bioinformatcs ngs"
+LABEL maintainer="alexander.kanitz@unibas.ch"
+LABEL maintainer.organisation="Biozentrum, University of Basel"
+LABEL maintainer.location="Klingelbergstrasse 50/70, CH-4056 Basel, Switzerland"
+LABEL maintainer.lab="Zavolan Lab"
+
+##### VARIABLES #####
+ENV SOFTWARE_VERSION 1.1.1
+ENV PYTHON_PACKAGES_DEPS cython==0.29.15
+ENV PYTHON_PACKAGES alfa==${SOFTWARE_VERSION}
+
+##### INSTALL #####
+RUN apt-get update -y
+RUN mkdir /install
+WORKDIR /install
+RUN pip install ${PYTHON_PACKAGES_DEPS}
+RUN pip install --prefix="/install" ${PYTHON_PACKAGES}
+RUN cp -r ../install/* /usr/local/
+
+##### CLEAN IMAGE #####
+FROM python:3.7.7-slim-buster
+ENV PACKAGES libcurl4-openssl-dev libssl1.1
+COPY --from=build /install /install
+RUN cp -r ../install/* /usr/local/ && \
+    apt-get update -y && \
+    apt-get install -y --no-install-recommends ${PACKAGES} && \
+    rm -rf /var/lib/apt/lists/*
+
