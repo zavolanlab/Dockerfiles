@@ -23,11 +23,7 @@ jobs:
       git diff --name-only "$TRAVIS_COMMIT_RANGE" | \
       grep ".*\/Dockerfile$" | \
       while read -r file ; do
-        if ! git diff --compact-summary "$TRAVIS_COMMIT_RANGE" | grep "(gone)"; then continue; fi
-        #grep "$file" | \
-        #grep "(gone)"; then
-        #  continue
-        #fi
+        if git diff --compact-summary "$TRAVIS_COMMIT_RANGE" | grep "$file" | grep "(gone)"; then continue; fi
         echo "Building image for Dockerfile '$file'..."
         docker build $(dirname "$file")
       done
@@ -39,11 +35,7 @@ jobs:
       grep ".*\/Dockerfile$" | \
       while read -r file ; do
         # Skip if file was deleted
-        if ! git diff --compact-summary "$TRAVIS_COMMIT_RANGE" | \
-        grep "$file" | \
-        grep "(gone)"; then
-          continue
-        fi
+        if git diff --compact-summary "$TRAVIS_COMMIT_RANGE" | grep "$file" | grep "(gone)"; then continue; fi
         # Extract tool name and version and sanitize according to Docker rules
         tool_name=$(dirname $(dirname "$file") | tr A-Z a-z | sed 's/[^a-z\-\_]//g')
         version=$(basename $(dirname "$file") | sed -e 's/[^a-zA-Z0-9\_\.\-]//g' -e 's/^[\.\-]//')
