@@ -17,11 +17,7 @@ LABEL maintainer.location="Klingelbergstrasse 50/70, CH-4056 Basel, Switzerland"
 LABEL maintainer.lab="Zavolan Lab"
 LABEL maintainer.license="Apache License 2.0"
 
-##### VARIABLES #####
-# Use variables for convenient updates/re-usability
-ENV SOFTWARE_VERSION 0.1
-
 ##### INSTALL #####
 RUN apt-get update \
-  && git clone https://github.com/zavolanlab/zgtf.git \
+  && git clone -branch 0.1 https://github.com/zavolanlab/zgtf.git \
   && pip install .
