@@ -32,6 +32,8 @@ RUN apt-get update \
   && tar xzvf motevo_ver${SOFTWARE_VERSION}.tar.gz \
   && cd motevo_ver${SOFTWARE_VERSION}/source \
   && make \
+  && cp motevo ../bin/ \
+  && cp runUFE ../bin/ \
   && cd ../ \
   && cp bin/* /usr/local/bin/ \
   && cd ../ \
