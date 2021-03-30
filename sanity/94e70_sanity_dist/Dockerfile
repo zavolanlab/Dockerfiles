@@ -5,7 +5,7 @@ FROM ubuntu:18.04
 LABEL base.image="ubuntu:18.04"
 LABEL version="1"
 LABEL software="Sanity"
-LABEL software.version="5809c5d8d89ddde0a37978fb73b9e31431555be5"
+LABEL software.version="94e7063027cb1cd0368134395bfb501e1f8b8377"
 LABEL software.description="Sanity"
 LABEL software.website=""
 LABEL software.documentation="https://github.com/jmbreda/Sanity"
@@ -24,7 +24,7 @@ RUN apt-get update \
   && apt-get install --yes git make g++ libgomp1 \
   && git clone https://github.com/jmbreda/Sanity.git \
   && cd Sanity \
-  && git checkout 5809c5d8d89ddde0a37978fb73b9e31431555be5 \
+  && git checkout 94e7063027cb1cd0368134395bfb501e1f8b8377 \
   && cd src \
   && make \
   && make Sanity_distance \
