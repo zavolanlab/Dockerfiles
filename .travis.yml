@@ -47,7 +47,7 @@ jobs:
         version=$(basename $(dirname "$file") | sed -e 's/[^a-zA-Z0-9\_\.\-]//g' -e 's/^[\.\-]//')
         remote="${DOCKER_ORGANIZATION}/${tool_name}:${version}"
         echo "Building image for Dockerfile '$file'..."
-        docker build -t "$remote" $(dirname $file)
+        travis_wait 30 docker build -t "$remote" $(dirname $file)
         echo "Pushing image to '$remote'..."
         echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
         docker push "$remote"
