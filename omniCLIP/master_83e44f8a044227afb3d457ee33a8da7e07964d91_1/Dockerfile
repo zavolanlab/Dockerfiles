@@ -5,7 +5,7 @@ FROM python:3.8
 LABEL base.image="python:3.8"
 LABEL version="1"
 LABEL software="omniCLIP"
-LABEL software.version="master_83e44f8a044227afb3d457ee33a8da7e07964d91"
+LABEL software.version="master_83e44f8a044227afb3d457ee33a8da7e07964d91_1"
 LABEL software.description="omniCLIP is a CLIP-Seq peak caller"
 LABEL software.website="https://github.com/philippdre/omniCLIP"
 LABEL software.documentation="https://github.com/philippdre/omniCLIP"
@@ -16,8 +16,6 @@ LABEL maintainer.organisation="Biozentrum, University of Basel"
 LABEL maintainer.location="Klingelbergstrasse 50/70, CH-4056 Basel, Switzerland"
 LABEL maintainer.lab="Zavolan Lab"
 LABEL maintainer.license="https://spdx.org/licenses/Apache-2.0"
-
-# WORKDIR /opt/
 
 ##### INSTALL #####
 RUN apt-get update && \
@@ -31,4 +29,6 @@ RUN cd /opt/ && \
   git checkout 83e44f8a044227afb3d457ee33a8da7e07964d91 && \
   python3 setup.py install
 
-WORKDIR /opt/omniCLIP
+ENV PYTHONPATH=${PYTHONPATH}:/opt/omniCLIP/omniCLIP:/opt/omniCLIP/omniCLIP/omni_stat:/opt/omniCLIP/omniCLIP/data_parsing
+
+WORKDIR /opt/omniCLIP/omniCLIP/
