@@ -5,7 +5,7 @@ FROM python:3.8
 LABEL base.image="python:3.8"
 LABEL version="1"
 LABEL software="omniCLIP"
-LABEL software.version="master_83e44f8a044227afb3d457ee33a8da7e07964d91_6"
+LABEL software.version="master_83e44f8a044227afb3d457ee33a8da7e07964d91_7"
 LABEL software.description="omniCLIP is a CLIP-Seq peak caller"
 LABEL software.website="https://github.com/philippdre/omniCLIP"
 LABEL software.documentation="https://github.com/philippdre/omniCLIP"
